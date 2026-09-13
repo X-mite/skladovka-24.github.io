@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Складовка-24 — Аренда складов-контейнеров в Санкт-Петербурге</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0e0f11;
+  --bg-card: #16181c;
+  --bg-card-hover: #1c1f25;
+  --accent: #e87a1a;
+  --accent-light: #f5a623;
+  --text: #e8e8e8;
+  --text-dim: #8a8d95;
+  --text-muted: #5a5d65;
+  --border: #2a2d35;
+  --green: #3ddc84;
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'Fira Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ——— HEADER ——— */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(14,15,17,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 24px; max-width: 1200px; margin: 0 auto;
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: 26px; font-weight: 700;
+  letter-spacing: 1px; text-decoration: none; color: var(--text);
+}
+.logo span { color: var(--accent); }
+nav { display: flex; gap: 32px; align-items: center; }
+nav a {
+  color: var(--text-dim); text-decoration: none;
+  font-size: 14px; font-weight: 500; letter-spacing: 0.5px;
+  text-transform: uppercase; transition: color 0.3s;
+}
+nav a:hover { color: var(--accent); }
+.nav-phone {
+  color: var(--accent) !important; font-weight: 600;
+  font-size: 16px !important; letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+.burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.burger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+
+/* ——— HERO ——— */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding-top: 80px;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(232,122,26,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 20% 80%, rgba(232,122,26,0.04) 0%, transparent 60%);
+}
+.hero-grid {
+  position: absolute; inset: 0; opacity: 0.03;
+  background-image:
+    linear-gradient(var(--text-dim) 1px, transparent 1px),
+    linear-gradient(90deg, var(--text-dim) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-content { position: relative; z-index: 2; }
+.hero-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(232,122,26,0.1); border: 1px solid rgba(232,122,26,0.2);
+  border-radius: 100px; padding: 8px 20px;
+  font-size: 13px; font-weight: 500; color: var(--accent-light);
+  letter-spacing: 1px; text-transform: uppercase;
+  margin-bottom: 32px;
+  animation: fadeUp 0.8s ease both;
+}
+.hero-label::before {
+  content: ''; width: 8px; height: 8px;
+  background: var(--green); border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 7vw, 96px);
+  font-weight: 700; line-height: 1;
+  letter-spacing: -1px; text-transform: uppercase;
+  margin-bottom: 24px;
+  animation: fadeUp 0.8s 0.1s ease both;
+}
+.hero h1 .highlight { color: var(--accent); }
+.hero-sub {
+  font-size: 20px; color: var(--text-dim);
+  max-width: 560px; line-height: 1.7; font-weight: 300;
+  margin-bottom: 48px;
+  animation: fadeUp 0.8s 0.2s ease both;
+}
+.hero-actions {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--accent); color: #fff;
+  padding: 18px 36px; border: none; border-radius: 4px;
+  font-family: var(--font-display); font-size: 16px;
+  font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  cursor: pointer; transition: all 0.3s; text-decoration: none;
+}
+.btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,122,26,0.3); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: transparent; color: var(--text);
+  padding: 18px 36px; border: 1px solid var(--border); border-radius: 4px;
+  font-family: var(--font-display); font-size: 16px;
+  font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  cursor: pointer; transition: all 0.3s; text-decoration: none;
+}
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+.hero-stats {
+  display: flex; gap: 48px; margin-top: 64px;
+  padding-top: 40px; border-top: 1px solid var(--border);
+  animation: fadeUp 0.8s 0.4s ease both;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 42px; font-weight: 700; color: var(--accent); line-height: 1;
+}
+.stat-label { font-size: 13px; color: var(--text-muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 1px; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ——— SECTION COMMON ——— */
+section { padding: 120px 0; }
+.section-tag {
+  font-family: var(--font-display);
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700; text-transform: uppercase;
+  line-height: 1.1; margin-bottom: 20px;
+}
+.section-desc {
+  font-size: 17px; color: var(--text-dim); max-width: 600px;
+  line-height: 1.7; font-weight: 300;
+}
+
+/* ——— DISCOUNT BANNER ——— */
+.discount-banner {
+  margin-top: 48px;
+  background: linear-gradient(135deg, rgba(61,220,132,0.08), rgba(61,220,132,0.02));
+  border: 1px solid rgba(61,220,132,0.2);
+  border-radius: 12px; padding: 28px 36px;
+  display: flex; align-items: center; gap: 20px;
+  animation: fadeUp 0.8s 0.5s ease both;
+}
+.discount-badge {
+  flex-shrink: 0;
+  width: 72px; height: 72px; border-radius: 50%;
+  background: rgba(61,220,132,0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 700; color: var(--green);
+}
+.discount-text h3 {
+  font-family: var(--font-display);
+  font-size: 20px; font-weight: 600; color: var(--green);
+  margin-bottom: 4px;
+}
+.discount-text p { font-size: 15px; color: var(--text-dim); }
+
+/* ——— ADVANTAGES ——— */
+.advantages { background: var(--bg); }
+.adv-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px; margin-top: 64px;
+}
+.adv-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 32px;
+  transition: all 0.4s; position: relative; overflow: hidden;
+  display: flex; align-items: center; gap: 24px;
+}
+.adv-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--accent); transform: scaleX(0);
+  transition: transform 0.4s; transform-origin: left;
+}
+.adv-card:hover { background: var(--bg-card-hover); transform: translateY(-4px); border-color: rgba(232,122,26,0.2); }
+.adv-card:hover::before { transform: scaleX(1); }
+.adv-icon {
+  width: 72px; height: 72px; min-width: 72px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(232,122,26,0.1); border-radius: 12px;
+  font-size: 36px;
+}
+.adv-text { flex: 1; }
+.adv-card h3 {
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.5px; margin-bottom: 6px;
+}
+.adv-card p { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+
+/* ——— PRICING ——— */
+.pricing { background: #111318; }
+
+/* Location tabs */
+.location-tabs {
+  display: flex; gap: 8px; margin-top: 40px; margin-bottom: 8px; flex-wrap: wrap;
+}
+.location-tab {
+  padding: 14px 28px; border: 1px solid var(--border);
+  border-radius: 8px 8px 0 0; background: var(--bg-card);
+  color: var(--text-dim); font-family: var(--font-display);
+  font-size: 15px; font-weight: 600; letter-spacing: 0.5px;
+  text-transform: uppercase; cursor: pointer; transition: all 0.3s;
+  border-bottom: none; position: relative; top: 1px;
+}
+.location-tab.active {
+  background: #1a1d24; color: var(--accent);
+  border-color: var(--accent); border-bottom: 1px solid #1a1d24;
+}
+.location-tab:hover:not(.active) { color: var(--text); }
+.location-tab .tab-addr {
+  display: block; font-family: var(--font-body);
+  font-size: 12px; font-weight: 400; color: var(--text-muted);
+  text-transform: none; letter-spacing: 0; margin-top: 4px;
+}
+.location-tab.active .tab-addr { color: var(--text-dim); }
+
+.location-panel {
+  display: none; background: #1a1d24;
+  border: 1px solid var(--border); border-radius: 0 8px 8px 8px;
+  padding: 40px 32px;
+}
+.location-panel.active { display: block; }
+.location-panel.tab2-active { border-radius: 8px 0 8px 8px; }
+
+.pricing-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+.price-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden;
+  transition: all 0.4s; position: relative;
+}
+.price-card.popular { border-color: var(--accent); }
+.price-card.popular .popular-tag {
+  position: absolute; top: 16px; right: 16px;
+  background: var(--accent); color: #fff;
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 1px; padding: 4px 12px; border-radius: 100px;
+}
+.price-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+.price-visual {
+  height: 140px; background: linear-gradient(135deg, #1a1d24, #22262e);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.price-visual::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg, rgba(232,122,26,0.03) 0px, rgba(232,122,26,0.03) 1px, transparent 1px, transparent 20px);
+}
+.container-icon { font-size: 56px; opacity: 0.8; }
+.price-body { padding: 28px; }
+.price-area {
+  font-family: var(--font-display);
+  font-size: 26px; font-weight: 700; text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.price-dims { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
+.price-from { font-size: 13px; color: var(--text-muted); margin-bottom: 2px; }
+.price-amount {
+  font-family: var(--font-display);
+  font-size: 34px; font-weight: 700; color: var(--accent); line-height: 1;
+}
+.price-period { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+.price-btn {
+  display: block; width: 100%; margin-top: 20px;
+  padding: 12px; background: rgba(232,122,26,0.1);
+  border: 1px solid rgba(232,122,26,0.3); border-radius: 4px;
+  color: var(--accent); font-family: var(--font-display);
+  font-size: 14px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 1px; cursor: pointer; transition: all 0.3s;
+  text-align: center; text-decoration: none;
+}
+.price-btn:hover { background: var(--accent); color: #fff; }
+
+/* ——— HOW IT WORKS ——— */
+.how-it-works { background: var(--bg); }
+.steps-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px; margin-top: 64px;
+}
+.step { text-align: center; }
+.step-num {
+  font-family: var(--font-display);
+  font-size: 72px; font-weight: 700;
+  color: rgba(232,122,26,0.12); line-height: 1;
+  margin-bottom: 12px;
+}
+.step h3 {
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 600; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.step p { font-size: 14px; color: var(--text-dim); line-height: 1.7; max-width: 260px; margin: 0 auto; }
+
+/* ——— CTA ——— */
+.cta-section {
+  padding: 100px 0;
+  background: linear-gradient(135deg, rgba(232,122,26,0.08), rgba(232,122,26,0.02));
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.cta-inner { text-align: center; }
+.cta-inner .section-title { margin-bottom: 16px; }
+.cta-inner .section-desc { margin: 0 auto 24px; text-align: center; }
+.cta-addresses {
+  display: flex; justify-content: center; gap: 40px;
+  margin-bottom: 32px; flex-wrap: wrap;
+}
+.cta-addr {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--text-dim); font-size: 15px;
+}
+.cta-addr svg { color: var(--accent); flex-shrink: 0; }
+.cta-addr a { color: var(--text-dim); text-decoration: none; transition: color 0.3s; }
+.cta-addr a:hover { color: var(--accent); }
+.cta-phone {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700; color: var(--accent);
+  text-decoration: none; display: block;
+  margin-bottom: 32px; transition: opacity 0.3s;
+}
+.cta-phone:hover { opacity: 0.8; }
+
+/* ——— FOOTER ——— */
+footer {
+  padding: 48px 0; background: #0a0b0d;
+  border-top: 1px solid var(--border);
+}
+.footer-inner {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-copy { font-size: 13px; color: var(--text-muted); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 13px; color: var(--text-dim); text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: var(--accent); }
+
+/* ——— MOBILE ——— */
+@media (max-width: 768px) {
+  nav { display: none; }
+  .burger { display: flex; }
+  nav.active {
+    display: flex; flex-direction: column;
+    position: fixed; top: 60px; left: 0; right: 0;
+    background: rgba(14,15,17,0.97);
+    backdrop-filter: blur(20px);
+    padding: 32px 24px; gap: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-stats { gap: 24px; flex-wrap: wrap; }
+  .stat-num { font-size: 32px; }
+  .hero-actions { flex-direction: column; }
+  .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .adv-grid { grid-template-columns: 1fr; }
+  .location-panel { padding: 24px 16px; }
+  .pricing-grid { grid-template-columns: 1fr 1fr; }
+  .discount-banner { flex-direction: column; text-align: center; }
+  .cta-addresses { flex-direction: column; gap: 16px; align-items: center; }
+}
+@media (max-width: 480px) {
+  .pricing-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">СКЛАДОВКА-<span>24</span></a>
+    <nav id="nav">
+      <a href="#advantages">Преимущества</a>
+      <a href="#pricing">Цены</a>
+      <a href="#how">Как арендовать</a>
+      <a href="tel:+79042622649" class="nav-phone">+7 (904) 262-26-49</a>
+    </nav>
+    <button class="burger" onclick="document.getElementById('nav').classList.toggle('active')" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-label">Свободные контейнеры в наличии</div>
+      <h1>Аренда <span class="highlight">склада</span><br>в контейнере</h1>
+      <p class="hero-sub">Сухие герметичные склады-контейнеры площадью от 2,5 до 30 м². Круглосуточный доступ, видеонаблюдение, охрана. Две площадки в Санкт-Петербурге.</p>
+      <div class="hero-actions">
+        <a href="tel:+79042622649" class="btn-primary">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Позвонить
+        </a>
+        <a href="#pricing" class="btn-secondary">Смотреть цены ↓</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">24/7</div>
+          <div class="stat-label">Круглосуточный доступ</div>
+        </div>
+        <div>
+          <div class="stat-num">30м²</div>
+          <div class="stat-label">Максимальная площадь</div>
+        </div>
+        <div>
+          <div class="stat-num">−10%</div>
+          <div class="stat-label">от 3 месяцев</div>
+        </div>
+      </div>
+
+      <div class="discount-banner">
+        <div class="discount-badge">−10%</div>
+        <div class="discount-text">
+          <h3>Скидка 10% при аренде от 3 месяцев</h3>
+          <p>Арендуйте склад на 3 месяца и более — получите выгодную цену. Договор с юр. и физ. лицами.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADVANTAGES -->
+<section class="advantages" id="advantages">
+  <div class="container">
+    <div class="section-tag">Преимущества</div>
+    <h2 class="section-title">Почему выбирают нас</h2>
+    <p class="section-desc">Надёжное хранение ваших вещей в современных контейнерах с полным контролем доступа и безопасности.</p>
+    <div class="adv-grid">
+      <div class="adv-card">
+        <div class="adv-icon">🔐</div>
+        <div class="adv-text">
+          <h3>Герметичность</h3>
+          <p>Сухое герметичное помещение — ваши вещи защищены от влаги, пыли и непогоды.</p>
+        </div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">🕐</div>
+        <div class="adv-text">
+          <h3>Доступ 24/7</h3>
+          <p>Круглосуточный доступ к складу в любой день недели, включая праздники.</p>
+        </div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">🚗</div>
+        <div class="adv-text">
+          <h3>Подъезд на авто</h3>
+          <p>Подъезжайте на автомобиле прямо к дверям вашего склада для удобной загрузки.</p>
+        </div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">📹</div>
+        <div class="adv-text">
+          <h3>Видеонаблюдение</h3>
+          <p>Территория оборудована камерами с онлайн-видеонаблюдением.</p>
+        </div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">🛡️</div>
+        <div class="adv-text">
+          <h3>Охрана территории</h3>
+          <p>Территория охраняется, действует пропускной режим для безопасности.</p>
+        </div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">💡</div>
+        <div class="adv-text">
+          <h3>Освещение</h3>
+          <p>Освещение внутри склада и на прилегающей территории для комфортной работы.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="section-tag">Тарифы</div>
+    <h2 class="section-title">Выберите склад</h2>
+    <p class="section-desc">Контейнеры различной площади на двух площадках в Санкт-Петербурге. Скидка 10% при аренде от 3 месяцев.</p>
+
+    <!-- Location Tabs -->
+    <div class="location-tabs">
+      <button class="location-tab active" onclick="switchTab(0)">
+        📍 Ул. Обручевых, 5
+        <span class="tab-addr">Санкт-Петербург, м. Академическая, м. Политехническая</span>
+      </button>
+      <button class="location-tab" onclick="switchTab(1)">
+        📍 Коломяги
+        <span class="tab-addr">Санкт-Петербург, м. Парнас, м. Озерки, Парголово, Коломяги</span>
+      </button>
+    </div>
+
+    <!-- Panel 1: Obruchevykh -->
+    <div class="location-panel active" id="panel-0">
+      <div class="pricing-grid">
+
+        <div class="price-card">
+          <div class="price-visual"><div class="container-icon">📦</div></div>
+          <div class="price-body">
+            <div class="price-area">2,5 м²</div>
+            <div class="price-dims">Ширина 1,1м · Длина 2,4м</div>
+            <div class="price-from">от</div>
+            <div class="price-amount">4 500 ₽</div>
+            <div class="price-period">в месяц</div>
+            <a href="tel:+79042622649" class="price-btn">Забронировать</a>
+          </div>
+        </div>
+
+        <div class="price-card">
+          <div class="price-visual"><div class="container-icon">📦</div></div>
+          <div class="price-body">
+            <div class="price-area">3,5 м²</div>
+            <div class="price-dims">Ширина 1,4м · Длина 2,4м</div>
+            <div class="price-from">от</div>
+            <div class="price-amount">5 500 ₽</div>
+            <div class="price-period">в месяц</div>
+            <a href="tel:+79042622649" class="price-btn">Забронировать</a>
+          </div>
+        </div>
+
+        <div class="price-card popular">
+          <span class="popular-tag">Популярный</span>
+          <div class="price-visual"><div class="container-icon">📦</div></div>
+          <div class="price-body">
+            <div class="price-area">5 м²</div>
+            <div class="price-dims">Ширина 2м · Длина 2,4м</div>
+            <div class="price-from">от</div>
+            <div class="price-amount">6 500 ₽</div>
+            <div class="price-period">в месяц</div>
+            <a href="tel:+79042622649" class="price-btn">Забронировать</a>
+          </div>
+        </div>
+
+        <div class="price-card">
+          <div class="price-visual"><div class="container-icon">📦</div></div>
+          <div class="price-body">
+            <div class="price-area">8 м²</div>
+            <div class="price-dims">Ширина 2,4м · Длина 3,1м</div>
+            <div class="price-from">от</div>
+            <div class="price-amount">8 500 ₽</div>
+            <div class="price-period">в месяц</div>
+            <a href="tel:+79042622649" class="price-btn">Забронировать</a>
+          </div>
+        </div>
+
+        <div class="price-card">
+          <div class="price-visual"><div class="container-icon">📦</div></div>
+          <div class="price-body">
+            <div class="price-area">30 м²</div>
+            <div class="price-dims">Ширина 2,4м · Длина 12м</div>
+            <div class="price-from">от</div>
+            <div class="price-amount">20 000 ₽</div>
+            <div class="price-period">в месяц</div>
+            <a href="tel:+79042622649" class="price-btn">Забронировать</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Panel 2: Kolomyagi -->
+    <div class="location-panel" id="panel-1">
+      <div class="pricing-grid">
+
+        <div class="price-card">
+          <div class="price-visual"><div class="container-icon">📦</div></div>
+          <div class="price-body">
+            <div class="price-area">2,5 м²</div>
+            <div class="price-dims">Ширина 1,1м · Длина 2,4м</div>
+            <div class="price-from">от</div>
+            <div class="price-amount">4 000 ₽</div>
+            <div class="price-period">в месяц</div>
+            <a href="tel:+79042622649" class="price-btn">Забронировать</a>
+          </div>
+        </div>
+
+        <div class="price-card">
+          <div class="price-visual"><div class="container-icon">📦</div></div>
+          <div class="price-body">
+            <div class="price-area">3,5 м²</div>
+            <div class="price-dims">Ширина 1,4м · Длина 2,4м</div>
+            <div class="price-from">от</div>
+            <div class="price-amount">4 500 ₽</div>
+            <div class="price-period">в месяц</div>
+            <a href="tel:+79042622649" class="price-btn">Забронировать</a>
+          </div>
+        </div>
+
+        <div class="price-card popular">
+          <span class="popular-tag">Популярный</span>
+          <div class="price-visual"><div class="container-icon">📦</div></div>
+          <div class="price-body">
+            <div class="price-area">5 м²</div>
+            <div class="price-dims">Ширина 2м · Длина 2,4м</div>
+            <div class="price-from">от</div>
+            <div class="price-amount">5 000 ₽</div>
+            <div class="price-period">в месяц</div>
+            <a href="tel:+79042622649" class="price-btn">Забронировать</a>
+          </div>
+        </div>
+
+        <div class="price-card">
+          <div class="price-visual"><div class="container-icon">📦</div></div>
+          <div class="price-body">
+            <div class="price-area">8 м²</div>
+            <div class="price-dims">Ширина 2,4м · Длина 3м</div>
+            <div class="price-from">от</div>
+            <div class="price-amount">8 000 ₽</div>
+            <div class="price-period">в месяц</div>
+            <a href="tel:+79042622649" class="price-btn">Забронировать</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works" id="how">
+  <div class="container">
+    <div class="section-tag">Как начать</div>
+    <h2 class="section-title">3 простых шага</h2>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Позвоните нам</h3>
+        <p>Свяжитесь с нами по телефону — поможем подобрать подходящий контейнер.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Заключите договор</h3>
+        <p>Оформим договор аренды с юридическими или физическими лицами.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Пользуйтесь</h3>
+        <p>Получите доступ к складу 24/7. Подъезжайте на авто прямо к дверям.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-inner">
+      <div class="section-tag">Свяжитесь с нами</div>
+      <h2 class="section-title">Остались вопросы?</h2>
+      <p class="section-desc">Позвоните — ответим на все вопросы, поможем выбрать склад нужного размера и оформить договор.</p>
+
+      <div class="cta-addresses">
+        <div class="cta-addr">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <a href="https://yandex.com/maps/2/saint-petersburg/house/ulitsa_obruchevykh_5k2b/Z0kYdQ9gTk0HQFhqfXxwc3xqYA==/?ll=30.380590%2C60.012172&z=19" target="_blank">СПб, ул. Обручевых, 5</a>
+        </div>
+        <div class="cta-addr">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <a href="https://yandex.com/maps/org/skladovka/235752970220/?ll=30.281182%2C60.063012&z=17.34" target="_blank">СПб, Приморский р-н, Коломяги</a>
+        </div>
+      </div>
+
+      <a href="tel:+79042622649" class="cta-phone">+7 (904) 262-26-49</a>
+      <a href="tel:+79042622649" class="btn-primary">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Позвонить сейчас
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-copy">© 2026 Складовка-24. Санкт-Петербург. Все права защищены.</div>
+      <div class="footer-links">
+        <a href="#advantages">Преимущества</a>
+        <a href="#pricing">Цены</a>
+        <a href="#how">Как арендовать</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Tab switching
+function switchTab(index) {
+  document.querySelectorAll('.location-tab').forEach((t, i) => t.classList.toggle('active', i === index));
+  document.querySelectorAll('.location-panel').forEach((p, i) => {
+    p.classList.toggle('active', i === index);
+    p.classList.toggle('tab2-active', i === index && index === 1);
+  });
+}
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.adv-card, .price-card, .step').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
